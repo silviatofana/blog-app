@@ -9,7 +9,7 @@ Rails
 To get a local copy up and running follow these steps.
 2 - open your terminal and clone the project running
 
-git clone git@github.com:shadabwahidullah/Blog-App.git
+git clone https://github.com/silviatofana/blog-app.git
 
 3 - install all the gems running
 
