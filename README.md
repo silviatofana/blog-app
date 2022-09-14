@@ -1,24 +1,52 @@
-# README
+Blog App
+This is a blog app in ROR. A user can post, like or have comments too
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Built with
+Ruby
+Rails
+1 - On Github, on the main page of the Blog App, click the Code button and copy "Clone with SSH" by clicking the copy icon. In your terminal, enter a git clone and past the link that you copied from the repository, and press the Enter (e.g. git@github.com:shadabwahidullah/Blog-App.git).
 
-Things you may want to cover:
+To get a local copy up and running follow these steps.
+2 - open your terminal and clone the project running
 
-* Ruby version
+git clone git@github.com:shadabwahidullah/Blog-App.git
 
-* System dependencies
+3 - install all the gems running
 
-* Configuration
+bundle install
 
-* Database creation
+4 - to run the file use
 
-* Database initialization
+rails server
 
-* How to run the test suite
+Testing
+We use Rspec gem to test our code.
 
-* Services (job queues, cache servers, search engines, etc.)
+You can run those tests locally if you follow the steps above from 1 to 3, and then run:
 
-* Deployment instructions
+rspec .
+Authors
+👤 **Silvia Tofana**
 
-* ...
+- GitHub: [@silviatofana](https://github.com/silviatofana)
+- LinkedIn: [@silviatofana](https://www.linkedin.com/in/silviatofana)
+- Twitter: [@silviatofana](https://twitter.com/SilviaTofana)
+
+
+
+🤝 Contributing
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the issues page.
+
+Show your support
+Give a ⭐️ if you like this project!
+
+📝 License
+This project is MIT licensed.
+
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
