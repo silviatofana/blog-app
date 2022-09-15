@@ -17,4 +17,3 @@ RSpec.describe 'Posts', type: :request do
     before(:example) { get user_post_path(1, 2) }
   end
 end
-

@@ -4,7 +4,7 @@ RSpec.describe Post, type: :model do
   describe 'Validations' do
     user = User.create(name: 'Whatever', bio: 'Hello! My name is King Josaphat.', posts_counter: 0)
     subject do
-      Post.new(title: 'This is first post', text: 'Hello! My name is King Josaphat.', user: user, comments_counter: 2,
+      Post.new(title: 'This is first post', text: 'Hello! My name is King Josaphat.', user:, comments_counter: 2,
                likes_counter: 2)
     end
 
@@ -46,4 +46,3 @@ RSpec.describe Post, type: :model do
     end
   end
 end
-
