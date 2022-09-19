@@ -57,16 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: blogdb_test
-
-  username: postgres
-
-  # The password associated with the postgres role (username).
-  password: test
-
-  host: localhost
-
-  port: 5433
+  database: postgres
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -90,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: blogdb
-  username: postgres
-  password: test
+  database: testing_rails_production
+  username: testing_rails
+  password: <%= ENV["TESTING_RAILS_DATABASE_PASSWORD"] %>
