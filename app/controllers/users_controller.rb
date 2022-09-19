@@ -5,4 +5,3 @@ class UsersController < ApplicationController
     @id = params[:id]
   end
 end
-
