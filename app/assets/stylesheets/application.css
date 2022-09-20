@@ -14,7 +14,7 @@
  *= require_self
  */
 
-a {
+ a {
   text-decoration: none;
   text-transform: none;
 }
@@ -65,4 +65,16 @@ ul {
 .button {
   width: 10%;
   text-align: center;
+}
+
+.msg {
+  width: 70%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-style: italic;
 }
