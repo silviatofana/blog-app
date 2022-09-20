@@ -13,4 +13,4 @@ class PostsController < ApplicationController
     @comments = @post.comments.order(created_at: :desc)
     @likes = @post.likes.all
   end
-endd
+end
