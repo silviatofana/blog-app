@@ -1,32 +1,29 @@
-<div>
-  <nav class="fs-6 p-3 container mt-2 p-2 bio">
-  <%= link_to "Home", root_path %>
-  </nav>
-  <%= render partial: "user_profile", locals: {user: @user} %>
-  <div class="border border-1 border-dark container p-2 my-5 bio">
-    <h3 class="py-4">Bio</h3>
-    <p><%= @user.bio %> </p>
-  </div>
-  <ul class="recent-posts">
-    <% @user.recent_posts.each do |p| %>
-      <li class="border border-1 border-dark container p-2 my-5 bio" >
-        <div>
-          <div>
-            <%= link_to user_post_path(@user.id, p.id), id: "user_post#{p.id}" do %>
-              <h4 class="py-4"><%= p.title %></h4>
-            <% end %>
-            <p><%= p.text.truncate(54) %> </p>
-          <div>
-          <div class="social-metrics d-flex justify-content-end gap-2 mr-3">
-            <span>Comments: <%= p.comments.size %></span>
-            <span>Likes: <%= p.likes.size %></span>
-          </div>
-        </div>
+<nav class="fs-6 p-3 container mt-2 p-2 bio">
+  <%= link_to "Home", root_path, class:"button px-3 my-2" %>
+</nav>
+
+<h1 class='users_heading'>User Details </h1>
+
+<%= render partial: 'user_prof', locals: {user:@user} %>
+<%= render partial: 'bio_prof', locals: {user:@user} %>
+
+<div class='recent_posts'>
+  <% @user.recent_post.each do |post| %>
+    <div class='post_card'>
+      <%= link_to user_post_path(@user.id, post.id), id: "user_post#{post.id}" do %>
+        <h3>Post: <%= post.title %></h3>
+        <p><%= post.text.truncate(30) %></p>
+      <% end %>
+      <div class='interactions'>
+        <span>Comments: <%= post.comments.size || 0 %></span>
+        <span>Likes: <%= post.likes.size || 0 %></span>
       </div>
-    </li>
+    </div>
   <% end %>
-  </ul>
-  <div>
-    <%= link_to "See all posts", user_posts_path(@user.id), class: "btn btn-primary d-flex justify-content-center align-self-center mb-5 button display" %>
-  <div>
+</div>
+<div class='all_posts'>
+  <button class='d-flex justify-content-center'>
+    <%= link_to "See all posts" , user_post_index_path(@user) %>
+  </button>
+
 </div>
