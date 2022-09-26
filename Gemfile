@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.3'
+ruby '3.1.2'
+
+gem 'rubocop', '>= 1.0', '< 2.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.2', '>= 7.0.2.2'
+gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -26,6 +28,13 @@ gem 'stimulus-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
+
+# Use ActiveStorage for image uploads and other attachments [
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+gem 'rails-controller-testing'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -71,7 +80,10 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'rubocop', '>= 1.0', '< 2.0'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+gem 'rack-mini-profiler'
 
-gem 'rails-controller-testing'
-gem 'rspec-rails', '~> 5.0.0'
+group :development, :test do
+  gem 'database_cleaner'
+end
+gem 'bullet', group: 'development'
