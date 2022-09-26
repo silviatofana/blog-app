@@ -3,9 +3,9 @@
 one:
   author_id: 1
   post_id: 1
-  text: MyString
+  text: MyText
 
 two:
   author_id: 1
   post_id: 1
-  text: MyString
+  text: MyText

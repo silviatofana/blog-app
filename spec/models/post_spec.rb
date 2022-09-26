@@ -1,26 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  subject { Post.new(title: 'Post Title', text: 'True title', comment_counter: 1, likes_counter: 1) }
+  user = User.create(name: 'Tom', bio: 'teacher in uganda')
+  user.save
+
+  subject do
+    Post.new(title: 'My new post', text: 'Hello', author: user)
+  end
+
   before { subject.save }
 
-  it 'title should not be nil' do
+  it 'it should check if the title is available' do
     subject.title = nil
     expect(subject).to_not be_valid
   end
 
-  it 'comment counter should be integer' do
-    subject.comment_counter = '15'
+  it 'Post counter must be greater or equal to zero' do
+    subject.likes_counter = -1
     expect(subject).to_not be_valid
   end
-
-  it 'comment counter should be greater than or equal to 0' do
-    subject.comment_counter = -1
-    expect(subject).to_not be_valid
+  it 'loads only the most recent 5 comments' do
+    expect(subject.recent_comments).to eq(subject.comments.last(5))
   end
 
-  it 'comment counter should be an integer' do
-    subject.likes_counter = 'five'
+  it 'should have 250 characters' do
+    subject.title = 'm' * 300
     expect(subject).to_not be_valid
   end
 end

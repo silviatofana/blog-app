@@ -1,44 +1,51 @@
 require 'rails_helper'
 
-RSpec.describe 'Post show page', type: :feature do
-  before do
-    user = User.create!(name: 'John Doe', photo: 'test.jpg', posts_counter: 0)
-    @post = Post.create(user_id: user.id, title: 'Post title', text: 'Post Text', comment_counter: 0, likes_counter: 0)
-    @comments = Comment.create(user_id: user.id, post_id: @post.id, text: 'Comment Text')
+RSpec.describe 'post_index', type: :feature do
+  user = User.find_by(id: 2)
+  post = user.posts.first
 
-    visit user_post_path(user, @post)
-  end
-
-  # it 'User post picture' do
-  # expect(page).to have_css("img[src\"#{@post.user.photo}\"]")
-  # end
-  it 'User name' do
-    expect(page).to have_content(@post.user.name)
-  end
-  it 'Number of posts' do
-    expect(page).to have_content(@post.user.posts_counter)
+  before(:each) do
+    visit user_posts_path(User.find_by(id: 2).id)
   end
 
-  it 'I can see the number of posts.' do
-    expect(page).to have_content @post.user.posts.size
+  it 'it shows the user\'s profile picture' do
+    expect(page.html).to include('avatal')
   end
-  it 'I can see post\'s title.' do
-    expect(page).to have_content @post.title
+
+  it 'user can see the user\'s username' do
+    expect(page).to have_content(user.name)
   end
-  it 'I can see post\'s body.' do
-    expect(page).to have_content @post.text
+
+  it 'user can see the user\'s number of posts' do
+    expect(page).to have_content("Number of Posts: #{user.posts_counter}")
   end
-  it 'I can see the first comments on a post.' do
-    expect(page).to have_content @comments.text
+
+  it 'user can see the post\'s title' do
+    expect(page).to have_content(post.title)
   end
-  it 'I can see how many comments a post has.' do
-    expect(page).to have_content @post.comments.size
+
+  it 'user can see the post\'s body' do
+    expect(page).to have_content(post.text)
   end
-  it 'I can see the number of likes a post has.' do
-    expect(page).to have_content @post.likes.size
+
+  it 'user can see the post\'s comments' do
+    expect(page.html).to include('comments')
   end
-  it 'When I click on a post, it redirects me to that post\'s show page.' do
-    click_link @post.title
-    expect(current_path).to eq user_post_path(@post.user_id, @post.id)
+
+  it 'user can see the post\'s number of comments' do
+    expect(page).to have_content("Comments #{post.comments_counter}")
+  end
+
+  it 'user can see the post\'s number of likes' do
+    expect(page).to have_content("Likes #{post.likes_counter}")
+  end
+
+  it 'user can see a section for add new post' do
+    expect(page).to have_content('Add new post')
+  end
+
+  it 'redirects to the post\'s page when a post is clicked' do
+    click_link(post.title)
+    expect(page.current_path).to eql(user_post_path(user_id: user.id, id: post.id))
   end
 end

@@ -1,30 +1,31 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  describe 'GET /index' do
-    before(:example) { get user_path }
-
-    it 'response status correct' do
-      expect(response).to have_http_status(:success)
-    end
-    it 'renders correct template' do
-      expect(response).to render_template('index')
-    end
-    it 'response body contains correct placeholder text' do
-      expect(response.body).to include('Here is a list of all users and their number of posts')
-    end
+RSpec.describe 'Users', type: :request
+describe 'GET /' do
+  it 'returns http success' do
+    get '/users'
+    expect(response).to have_http_status(:success)
   end
-
-  describe 'GET /show' do
-    before(:example) { get user_path(1) }
-    it 'returns response status correct' do
-      expect(response).to have_http_status(:success)
-    end
-    it 'renders correct template' do
-      expect(response).to render_template('show')
-    end
-    it 'response body contains correct placeholder text' do
-      expect(response.body).to include('Here is the profile page of user with the given id')
-    end
+  it 'renders the index template' do
+    get '/users'
+    expect(response).to render_template('index')
+  end
+  it 'renders the Post text' do
+    get '/users'
+    expect(response.body).to include('Tom')
+  end
+end
+describe 'GET /users/:id' do
+  it 'returns http success' do
+    get '/users/1'
+    expect(response).to have_http_status(:success)
+  end
+  it 'renders the show template' do
+    get '/users/1'
+    expect(response).to render_template('show')
+  end
+  it 'renders the Post text' do
+    get '/users/1'
+    expect(response.body).to include('Comments')
   end
 end

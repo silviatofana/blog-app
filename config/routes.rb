@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  root "users#index"
-
-
-  resources :users, only: %i[index show] do 
-    resources :posts, only: %i[index new create show]
-  end
-
-  resources :posts do
-    resources :comments, only: %i[create]
-    resources :likes, only: %i[create]
+  # rubocop:disable Style/SymbolArray
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :comments, only: [:new, :create]
+  resources :likes, only: [:create]
+  # Defines the root path route ("/")
+  # root "articles#index"
+  resources :users, only: [:index, :show] do
+    resources :posts, only: [:index, :show, :new, :create]
   end
 end
