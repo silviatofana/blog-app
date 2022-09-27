@@ -1,80 +1,82 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-
-a {
-  text-decoration: none;
-  text-transform: none;
-}
-
-.user_wrapper {
-  width: 100%;
-  margin: 0 auto;
+.post-partial,
+.bio,
+.comments,
+.post {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.display {
-  color: #222;
-  width: 72%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  column-gap: 8%;
-  margin-bottom: 20px;
-}
-
-.display .avatar {
-  width: 25%;
-  height: auto;
-}
-
-.user_list {
-  padding: 10px;
   border: 2px solid #333;
-  width: 100%;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 5px 10px;
+  width: calc(100% - 20px);
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: none;
 }
 
-.num_post {
-  align-self: flex-end;
+.post h3 {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.post .post-stats {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.post-partial * {
   margin: 0;
 }
 
-.bio {
-  width: 70%;
+.post-partial .post-stats {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.button {
-  width: 10%;
+.comments {
+  margin-top: -9px;
+}
+
+.see-all {
+  white-space: nowrap;
+  width: 100px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.msg {
-  width: 70%;
-  margin: 20px auto;
-  display: flex;
-  align-items: center;
+a {
+  text-decoration: none;
 }
 
-input::placeholder,
-textarea::placeholder {
-  font-style: italic;
+.new_like {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  margin-top: -9px;
+}
+
+.see-all-btn {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.new_comment {
+  display: flex;
+  flex-flow: column;
+}
+
+.new_comment #comment_text {
+  display: inline-block;
+  width: 40%;
+  height: 100px;
+}
+
+.new_comment input {
+  width: fit-content;
 }

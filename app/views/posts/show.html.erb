@@ -1,25 +1,29 @@
-<nav class="fs-6 p-3 container mt-2 p-2 bio">
-  <%= link_to "Home", root_path %>
-</nav>
+<article class="post">
+  <h3><%= @post.title %>  by <%= link_to @post.author.name, user_path(@post.author_id) %></h3>
+  <div class="post-stats">
+    <span>Comments: <%= @post.comments_counter %> &nbsp;,&nbsp;</span>
+    <span>Likes: <%= @post.likes_counter %></span>
+  </div>
+  <p><%= @post.text %></p>
+</article>
 
-<div>
-  <div>
-    <div class="border border-3 border-dark container p-2 my-5 bio">
-      <div class="d-flex justify-content-between my-3">
-        <h4><%= @post.title %> by <%= link_to user_path(@post.user.id) do %> <%= @post.user.name %> <% end %></h4>
-        <p>Comments : <%= @post.comments.size%>  Likes : <%= @post.likes.size %> </p>
-      </div>
-        <p><%= @post.text %> </p>
-    </div>
+<ul class="comments">
+  <% @post.recent_comments.each do |comment| %>
+    <li><%= comment.author.name %>: <%= comment.text %>
+  <% end %>
+</ul> 
 
-    <ul class="border border-2 border-dark container p-2 my-5 bio">
-      <% @post.comments.each do |c| %>
-        <li><%= c.user.name %>: <%= c.text%></li>
-      <% end %>
-    </ul>
+<%= form_for @like, url:likes_path do |f|%>
+  <%= f.hidden_field :author_id, value: @post.author.id %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit "Like", disable_with: 'updating likes...' %>
+<% end %>
 
-    <%= render partial: "likes/create" %>
-    <%= render partial: "comments/create" %>
-    
-
-</div>
+<h4>Add comment</h4>
+<%= form_for @comment, url:comments_path do |f| %>
+  <%= f.hidden_field :author_id, value: @post.author.id %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label :text %><br />
+  <%= f.text_area :text, placeholder:'Add your Comment' %><br />
+  <%= f.submit "Submit comment", class:'btn', disable_with: 'Submiting Comment...' %>
+<% end %> 
