@@ -93,6 +93,8 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     erubi (1.11.0)
+    ffi (1.15.5)
+    ffi (1.15.5-x86-mingw32)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -250,6 +252,7 @@ DEPENDENCIES
   bullet
   capybara
   debug
+  ffi (~> 1.15, >= 1.15.5)
   importmap-rails
   jbuilder
   pg (~> 1.1)

@@ -80,3 +80,6 @@ group :test do
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
 end
+
+gem 'ffi', '~> 1.15', '>= 1.15.5'
+
