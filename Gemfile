@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.4'
+gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -29,6 +29,7 @@ gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
+gem 'devise'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -48,20 +49,9 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem 'bullet'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-
-  # The RSpec testing framework
-  gem 'rspec-rails'
-
-  # Capybara, the library that allows us to interact with the browser using Ruby
-  gem 'capybara'
-
-  # The following gems aids with the nuts and bolts
-  # of interacting with the browser.
-  gem 'webdrivers'
 end
 
 group :development do
@@ -77,9 +67,16 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'rails-controller-testing'
+  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
-gem 'ffi', '~> 1.15', '>= 1.15.5'
+# Rubocop
+gem 'rubocop', '>= 1.0', '< 2.0'
 
+# Rspec Gem
+group :development, :test do
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
+  gem 'rspec-rails'
+end
