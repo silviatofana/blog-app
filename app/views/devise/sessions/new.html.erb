@@ -1,7 +1,7 @@
-<h2 class="login-text">Log in</h2>
+<h2 class="login-text page-title">Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
-<div class="registration">
+<div class="registration form-card">
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

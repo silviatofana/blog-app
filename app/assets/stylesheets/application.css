@@ -80,3 +80,14 @@ a {
 .new_comment input {
   width: fit-content;
 }
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}
+
+.page-title {
+  text-align: center;
+}

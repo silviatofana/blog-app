@@ -6,10 +6,11 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "Send me reset password instructions", data: { turbo: false } %>
   </div>
 <% end %>
 
