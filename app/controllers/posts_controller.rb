@@ -1,34 +1,53 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @user = User.find(params[:user_id])
-    @user_posts = Post.includes(:author, :comments, :likes).where(author_id: params[:user_id]).order(created_at: :desc)
+    @posts = @user.posts
   end
 
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new
-    @like = Like.new
   end
 
   def new
     @post = Post.new
-    @params = params
-  end
-
-  def create
-    @post = Post.new(posts_params)
-    if @post.save
-      redirect_to user_posts_path(id: @post.id, user_id: @post.author_id)
-
-    else
-      render :new, status: :unprocessable_entity, content_type: 'text/html'
-      headers['Content-Type'] = 'text/html'
+    respond_to do |format|
+      format.html { render :new, locals: { post: @post } }
     end
   end
 
-  private
+  def post_params
+    params
+      .require(:post)
+      .permit(:title, :text)
+      .merge(author: current_user, comments_counter: 0, likes_counter: 0)
+  end
 
-  def posts_params
-    params.require(:post).permit(:title, :text, :author_id)
+  def create
+    @post = Post.new(post_params)
+    respond_to do |format|
+      format.html do
+        if @post.save
+          flash[:success] = 'Post saved successfully'
+          redirect_to user_post_path(current_user, @post)
+        else
+          flash.now[:error] = 'Error: Post could not be saved'
+          redirect_to new_user_post_path(current_user)
+        end
+      end
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    @user = current_user
+    @user.posts_counter -= 1
+    @user.save
+
+    respond_to do |format|
+      format.html { redirect_to(user_posts_url) }
+    end
   end
 end
