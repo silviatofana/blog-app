@@ -1,21 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { User.new(name: 'John Doe', photo: 'https://example.com/photo.jpg', bio: 'Great Dude', posts_counter: 0) }
-  before { subject.save }
+  describe 'Tests for User model validation ' do
+    subject { User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.') }
 
-  it 'name should not be nil' do
-    subject.name = nil
-    expect(subject).to_not be_valid
+    before { subject.save }
+
+    it 'name should be present' do
+      subject.name = nil
+      expect(subject).to_not be_valid
+    end
+
+    it 'name should not be blank' do
+      subject.name = ''
+      expect(subject).to_not be_valid
+    end
+
+    it 'posts counter should be greater than or equal than 0' do
+      subject.posts_counter = -5
+      expect(subject).to_not be_valid
+    end
+
+    it 'posts counter should be an integer' do
+      subject.posts_counter = 5.8
+      expect(subject).to_not be_valid
+    end
   end
 
-  it 'posts_counter should not be nil' do
-    subject.posts_counter = nil
-    expect(subject).to_not be_valid
-  end
+  describe 'Tests for User model methods' do
+    before { 10.times { Post.create(author: subject, title: 'Hello', text: 'This is my first post') } }
 
-  it 'Post_counter must be greater than or equal to 0' do
-    subject.posts_counter = -1
-    expect(subject).to_not be_valid
+    it 'recent three posts should return 3 posts' do
+      expect(subject.recent_three_posts).to eql(subject.posts.last(3))
+    end
   end
 end
