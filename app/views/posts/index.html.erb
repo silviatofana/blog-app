@@ -1,13 +1,30 @@
-<%= render partial:'partials/userpartial', locals: {user: @user} %>
+<h2 class="descriptive-title">Here is a list of posts for a given user<h2>
 
-<% @user_posts.each do |post|%>
-<%= render partial:'partials/postpartial', locals: {post: post} %>
+<%= render "users/user_card" %>
+<% @posts.each do |post| %>
+    <div class="post-card">
+    <br>
+<%= link_to  post.title, user_post_path(@user, post)  %>
 
-<ul class="comments">
-      <% post.recent_comments.each do |comment| %>
-        <li><%= comment.author.name %>: <%= comment.text %>
-      <% end %>
-      </ul>
-<% end %>
+<br>
+<p><%= post.text %></p>
+<span class="counter-card">
+<span>Comments: </span><%= post.comments_counter %>
+<span>, Likes: </span><%= post.likes_counter %>
+</span>
+<br>
+</div>
+<div class="comment-card">
+ <% post.comments.includes(:author).order(updated_at: :desc).last(5).each do |comment| %>
+    
+    <span><%= comment.author.name %></span>
 
-<%= link_to "Add new post", new_user_post_path(@user), class: " see-all-btn" %>
+    <span><%= comment.text%></span>
+    <br>
+    
+    <% end %>
+    </div>
+    <% end %>
+    <%= link_to  "Create new Post", new_user_post_path(@user)  %>
+
+    <button>Pagination</button>
