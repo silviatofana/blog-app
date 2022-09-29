@@ -1,16 +1,24 @@
-<%= render partial: 'partials/userpartial', locals: { user: @user } %>
+<h1 class="descriptive-title">Here is a specific user<h1>
 
-<div class = "user-info">
-<p>Bio
-<p>
-<%= @user.bio%>
-</p>
-</p>
-
-<% @recent_posts.each do |recent| %>
-
-<%= render partial: 'partials/postpartial', locals: { post: recent}  %>
-<% end %>
-
-<%= link_to("See all posts", user_posts_path(@user), class: "see-all-btn ") %>
+<%= render "user_card" %>
+<div class="bio-card">
+<h2>Bio<h2>
+<p><%= @user.bio %></p>
 </div>
+
+<% @user.recent_three_posts.each do |post| %>
+    <div class="post-card">
+    <br>
+    <%= link_to  post.title, user_post_path(@user, post)  %>
+
+<p><%= post.text %></p>
+<span class="counter-card">
+<span>Comments: <%= post.comments_counter %></span>
+
+<span>, Likes: <%= post.likes_counter %></span>
+</span>
+</div>
+<% end %>
+<%= link_to  "Create new Post", new_user_post_path(@user)  %>
+
+<button><%= link_to  "See all posts", user_posts_path(@user)  %></button>
