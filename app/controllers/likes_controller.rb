@@ -1,24 +1,12 @@
 class LikesController < ApplicationController
-  def like_params
-    params
-      .require(:like)
-      .permit(:post_id)
-      .merge(author: current_user)
-  end
-
   def create
     @like = Like.new(like_params)
-    respond_to do |format|
-      format.html do
-        if @like.save
-          redirect_to user_post_path(current_user, @like.post)
-        else
-          flash.now[:error] = 'Error: Like could not be saved'
-          redirect_to user_post_path(current_user)
-        end
-      end
-    end
+    redirect_to user_posts_path(id: @like.post_id, user_id: @like.author_id) if @like.save
   end
 
-  helper_method :create
+  private
+
+  def like_params
+    params.require(:like).permit(:author_id, :post_id)
+  end
 end
