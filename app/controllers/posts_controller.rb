@@ -48,4 +48,3 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :text, :author_id)
   end
 end
-
