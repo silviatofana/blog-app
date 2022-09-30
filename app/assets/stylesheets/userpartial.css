@@ -1,0 +1,48 @@
+.user-partial {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding: 5px 0;
+  margin: 5px 0;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.user_partial {
+  max-height: 80px;
+  max-width: 90px;
+  background-color: red;
+}
+
+.user_picture {
+  max-height: 80px;
+  max-width: 90px;
+}
+
+.content {
+  display: flex;
+  width: calc(100% - 130px);
+  border: 2px solid #333;
+  border-radius: 2px;
+  height: 100px;
+  flex-direction: column;
+  padding: 5px 15px;
+}
+
+.user_partial .content h2 {
+  margin: 0;
+}
+
+.content p {
+  text-align: right;
+}
+
+.see-all-btn {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  margin-top: 10px;
+}

@@ -1,40 +1,50 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
+
   def index
-    user_id = params[:user_id]
-    @user = User.find(user_id)
-    @posts = @user.posts.order(created_at: :desc)
+    @user = User.find(params[:user_id])
+    @user_posts = Post.includes(:author, :comments, :likes).where(author_id: params[:user_id]).order(created_at: :desc)
   end
 
   def show
-    user_id = params[:user_id]
-    id = params[:id]
-    @user = User.find(user_id)
-    @post = Post.find(id)
-    @comments = @post.comments.order(created_at: :desc)
-    @likes = @post.likes.all
+    @post = Post.find(params[:id])
+    @comment = Comment.new
+    @like = Like.new
   end
 
   def new
-    @current = current_user
+    @post = Post.new
+    @params = params
   end
 
   def create
-    new_post = current_user.posts.build(post_params)
+    @post = Post.new(posts_params)
+    if @post.save
+      redirect_to user_posts_path(id: @post.id, user_id: @post.author_id)
+
+    else
+      render :new, status: :unprocessable_entity, content_type: 'text/html'
+      headers['Content-Type'] = 'text/html'
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    authorize! :destroy, @post
+    @comment = @post.comments
+    @comment.each(&:destroy)
+    @post.destroy
+    flash[:success] = ['Post Deleted Successfully']
 
     respond_to do |format|
-      format.html do
-        if new_post.save
-          redirect_to user_post_path(new_post.user_id, new_post.id), notice: 'Post created successfully'
-        else
-          render :new, alert: 'An error occured. Please try again!'
-        end
-      end
+      format.html { redirect_to "/users/#{current_user.id}/posts" }
+      format.json { head :no_content }
     end
   end
 
   private
 
-  def post_params
-    params.require(:post).permit(:title, :text)
+  def posts_params
+    params.require(:post).permit(:title, :text, :author_id)
   end
 end

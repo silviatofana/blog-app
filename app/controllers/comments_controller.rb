@@ -1,22 +1,29 @@
 class CommentsController < ApplicationController
-  def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(text: comment_parameters[:text], user_id: current_user.id, post_id: @post.id)
+  load_and_authorize_resource
+  def new
+    @comment = Comment.new
+  end
 
+  def create
+    @comment = Comment.new(comment_params)
+    redirect_to user_posts_path(id: @comment.post_id, user_id: @comment.author_id) if @comment.save
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    authorize! :destroy, @comment
+    @post = Post.find(@comment.post_id)
+    flash[:success] = ['Comment Deleted Successfully']
+    @comment.destroy
     respond_to do |format|
-      format.html do
-        if @comment.save
-          redirect_to user_post_path(@post.user.id, @post.id), notice: 'Comment created successfully'
-        else
-          redirect_to user_post_path(@post.user.id, @post.id), alert: 'An error occured, please try again!'
-        end
-      end
+      format.html { redirect_to "/users/#{current_user.id}/posts/#{@post.id}" }
+      format.json { head :no_content }
     end
   end
 
   private
 
-  def comment_parameters
-    params.require(:comment).permit(:text)
+  def comment_params
+    params.require(:comment).permit(:text, :author_id, :post_id)
   end
 end
