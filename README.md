@@ -32,7 +32,6 @@ Authors
 - LinkedIn: [@silviatofana](https://www.linkedin.com/in/silviatofana)
 - Twitter: [@silviatofana](https://twitter.com/SilviaTofana)
 
-
 👤 **Terbeche Mostefa**
 
 - GitHub: [@githubhandle](https://github.com/Terbeche)
